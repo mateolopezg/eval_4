@@ -1,0 +1,74 @@
+﻿@model IEnumerable<eval_iv_mateo_lopez.Models.Cliente>
+@{
+    ViewData["Title"] = "Lista Clientes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Tienda Virtual - Clientes</h2>
+
+<div class="container">
+
+    @if (TempData["mensaje"] != null)
+            {
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                    <span aria-hidden="true">&times;</span>
+                </div>
+            }
+
+    <div class="row">
+        <div class="col-sm-6">
+            <h3>Lista de los clientes</h3>
+        </div>
+        <div class="col-sm-6">
+            <a class="btn btn-success d-block" asp-action="Create" asp-controller="Clientes"> Agregar Clientes</a>
+        </div>
+    </div>
+
+    <div class="row">
+        @if (Model.Count() > 0)
+        {
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <td>@Html.DisplayNameFor(m => m.id_cliente)</td>
+                        <td>@Html.DisplayNameFor(m => m.nombre)</td>
+                        <td>@Html.DisplayNameFor(m => m.rut)</td>
+                        <td>@Html.DisplayNameFor(m => m.direccion)</td>
+                        <td>@Html.DisplayNameFor(m => m.telefono)</td>
+                        <td>@Html.DisplayNameFor(m => m.cantidad)</td>
+                        <!--<td>????.DisplayNameFor(m => m.productos)</td> -->
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>@item.id_cliente</td>
+                        <td>@item.nombre</td>
+                        <td>@item.rut</td>
+                        <td>@item.direccion</td>
+                        <td>@item.telefono</td>
+                        <!--<td>@item.productos</td>-->
+                        <td>@item.cantidad</td>
+                        <td>
+                            <a asp-controller="Clientes" asp-action="Edit" asp-route-id="@item.id_cliente" class="btn btn-warning">Editar</a>
+                        </td>
+                        <td>
+                            <a asp-controller="Clientes" asp-action="Delete" asp-route-id="@item.id_cliente" class="btn btn-danger" disabled>Borrar</a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+
+        }
+        else
+        {
+            <p>No existen registros</p>
+        }
+    </div>
+</div>
+
